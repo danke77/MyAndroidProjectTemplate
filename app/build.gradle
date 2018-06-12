@@ -1,0 +1,174 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion COMPILE_SDK_VERSION.toInteger()
+
+    defaultConfig {
+        applicationId APPLICATION_ID.toString()
+
+        minSdkVersion MIN_SDK_VERSION.toInteger()
+        targetSdkVersion TARGET_SDK_VERSION.toInteger()
+        versionCode VERSION_CODE.toInteger()
+        versionName getVersionName(VERSION_NAME.toString())
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
+
+        multiDexEnabled false
+
+        ndk {
+            abiFilters "armeabi-v7a"
+        }
+
+        manifestPlaceholders = [
+                InstallChannelValue: "Default", // default channel
+                PACKAGE_NAME       : applicationId,
+        ]
+
+        sourceSets {
+            main {
+                jni.srcDirs = []
+                assets.srcDirs = ['src/main/assets']
+            }
+        }
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("keystore_release.jks")
+            storePassword "${RELEASE_SIGN_STORE_PASSWORD}"
+            keyAlias "${RELEASE_SIGN_KEY_ALIAS}"
+            keyPassword "${RELEASE_SIGN_KEY_PASSWORD}"
+            v2SigningEnabled true
+        }
+
+        debug {
+            storeFile file("keystore_debug.jks")
+            storePassword "${DEBUG_SIGN_STORE_PASSWORD}"
+            keyAlias "${DEBUG_SIGN_KEY_ALIAS}"
+            keyPassword "${DEBUG_SIGN_KEY_PASSWORD}"
+            v2SigningEnabled true
+        }
+    }
+
+    buildTypes {
+        release {
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+
+        debug {
+            debuggable true
+            minifyEnabled false
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    flavorDimensions 'flavor'
+
+    productFlavors {
+        develop {
+            dimension 'flavor'
+        }
+
+        product {
+            dimension 'flavor'
+        }
+    }
+
+    variantFilter { variant ->
+        if (variant.buildType.name == 'release' && variant.getFlavors().get(0).name == 'develop') {
+            variant.setIgnore(true)
+        }
+        if (variant.buildType.name == 'debug' && variant.getFlavors().get(0).name == 'product') {
+            variant.setIgnore(true)
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+        ignoreWarnings true
+        lintConfig file("${rootProject.rootDir}/lint.xml")
+    }
+
+    packagingOptions {
+        exclude('META-INF/LICENSE.txt')
+        exclude('META-INF/NOTICE.txt')
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+android.applicationVariants.all { variant ->
+    variant.outputs.all {
+        outputFileName = "${getChannelOutputFileName(outputFile.name)}"
+    }
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion "$ANDROID_SUPPORT_VERSION"
+            }
+        }
+    }
+
+    resolutionStrategy {
+        force 'com.google.code.findbugs:jsr305:3.0.2'
+        cacheChangingModulesFor 30, 'minutes'
+    }
+}
+
+def getVersionName(String versionName) {
+    // 开发 / 提测 / 发布
+    // 0/1/2
+    switch (PUBLISH_MODEL as Integer) {
+        case 2:
+            return versionName
+        case 1:
+            return versionName + 'T(' + new Date().format('yyyy.MM.dd-HH:mm') + ')'
+        default:
+            return versionName + 'D'
+    }
+}
+
+def getChannelOutputFileName(outputFileName) {
+    def parts = outputFileName.tokenize('-')
+    def channel = parts[1]
+    def version = "${VERSION_NAME}" // "${android.defaultConfig.versionName}"
+    def buildType = parts[2].tokenize('.')[0]
+    return 'AndroidTemplate_' + channel + '_' + version + '-' + buildType + '.apk'
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    androidTestImplementation "com.android.support.test:runner:${RUNNER_VERSION}"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:${ESPRESSO_VERSION}"
+    androidTestImplementation "com.android.support:support-annotations:${ANDROID_SUPPORT_VERSION}"
+    testImplementation "junit:junit:${JNUIT_VERSION}"
+
+    if (FAST_BUILD.toBoolean()) {
+        // implementation your module here.
+    } else {
+        implementation project(path: ':module_a')
+        implementation project(path: ':module_b')
+        implementation project(path: ':module_c')
+    }
+
+}

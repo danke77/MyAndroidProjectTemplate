@@ -1,0 +1,7 @@
+apply from: "../lib.gradle"
+
+dependencies {
+    api project(path: ':lib_core')
+
+    // ui
+}
