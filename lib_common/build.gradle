@@ -1,4 +1,4 @@
-apply from: "../lib.gradle"
+apply from: "../config/lib.gradle"
 
 dependencies {
     api project(path: ':lib_core')

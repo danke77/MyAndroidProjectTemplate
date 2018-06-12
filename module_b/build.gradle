@@ -1,5 +1,5 @@
 if (FAST_BUILD.toBoolean()) {
-    apply from: "../module_app.gradle"
+    apply from: "../config/module_app.gradle"
 } else {
-    apply from: "../module_lib.gradle"
+    apply from: "../config/module_lib.gradle"
 }
