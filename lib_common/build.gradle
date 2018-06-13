@@ -3,5 +3,8 @@ apply from: "../config/lib.gradle"
 dependencies {
     api project(path: ':lib_core')
 
-    // ui
+    // router
+    api 'com.alibaba:arouter-api:1.3.1'
+
+    // ui lib
 }

@@ -1,6 +1,7 @@
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.alibaba.arouter'
 
 android {
     compileSdkVersion COMPILE_SDK_VERSION.toInteger()
@@ -52,6 +53,12 @@ android {
     resourcePrefix project.getName() + '_'
 }
 
+kapt {
+    arguments {
+        arg('moduleName', project.getName())
+    }
+}
+
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -59,6 +66,8 @@ dependencies {
     androidTestImplementation "com.android.support.test.espresso:espresso-core:${ESPRESSO_VERSION}"
     androidTestImplementation "com.android.support:support-annotations:${ANDROID_SUPPORT_VERSION}"
     testImplementation "junit:junit:${JNUIT_VERSION}"
+
+    kapt 'com.alibaba:arouter-compiler:1.1.4'
 
     api project(path: ':lib_common')
 }
