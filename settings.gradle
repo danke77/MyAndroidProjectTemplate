@@ -1,4 +1,5 @@
 include ':app'
+include ':module_launcher'
 include ':module_a'
 include ':module_b'
 include ':module_c'

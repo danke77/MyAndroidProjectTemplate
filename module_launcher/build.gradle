@@ -1,0 +1,5 @@
+if (FAST_BUILD.toBoolean()) {
+    apply from: "../config/module_app.gradle"
+} else {
+    apply from: "../config/module_lib.gradle"
+}
