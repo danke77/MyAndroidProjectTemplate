@@ -1,9 +1,5 @@
 apply from: "../config/lib.gradle"
 
-androidExtensions {
-    experimental = true
-}
-
 dependencies {
     // kotlin
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${KOTLIN_VERSION}"
