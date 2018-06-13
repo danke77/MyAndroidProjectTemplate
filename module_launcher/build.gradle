@@ -1,5 +1,18 @@
-if (FAST_BUILD.toBoolean()) {
-    apply from: "../config/module_app.gradle"
-} else {
-    apply from: "../config/module_lib.gradle"
+apply from: "../config/module_lib.gradle"
+
+android {
+    sourceSets {
+        main {
+            if (FAST_BUILD.toBoolean()) {
+                manifest.srcFile "src/fast/AndroidManifest.xml"
+                java.srcDirs = ['src/fast/java']
+                res.srcDirs = ['src/fast/res/']
+            } else {
+                manifest.srcFile "src/main/AndroidManifest.xml"
+                java.srcDirs = ['src/main/java']
+                res.srcDirs = ['src/main/res/']
+            }
+
+        }
+    }
 }
