@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="titlePrimary">#111</color>
+    <color name="titlePrimaryDisabled">#66111111</color>
+
+    <color name="refresh_color_scheme_0">@color/colorPrimary</color>
+    <color name="refresh_color_scheme_1">@color/colorAccent</color>
+
+    <color name="separate_line">#e8e9ea</color>
+
+    <color name="dialog_title">@color/titlePrimary</color>
+    <color name="dialog_content">#666666</color>
+    <color name="dialog_highlight_positive">@color/colorPrimary</color>
+    <color name="dialog_neutral">#333333</color>
+    <color name="dialog_negative">#333333</color>
+    <color name="dialog_bg">#F8F8F8</color>
+
+</resources>

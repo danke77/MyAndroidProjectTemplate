@@ -1,2 +1,7 @@
 <resources>
+    <string name="permission_denied_rationale">请允许%1$s使用以下权限</string>
+    <string name="permission_permanently_denied_title">请求权限</string>
+    <string name="permission_permanently_denied_message">可在设置-应用-%1$s-权限进行权限修改</string>
+    <string name="permission_setting">去设置</string>
+    <string name="permission_cancel">取消</string>
 </resources>
