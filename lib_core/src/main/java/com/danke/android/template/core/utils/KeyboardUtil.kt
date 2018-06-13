@@ -125,7 +125,7 @@ object KeyboardUtil {
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
                 listener.onClick(v)
                 true
-            } else {
+            }else {
                 false
             }
         }
