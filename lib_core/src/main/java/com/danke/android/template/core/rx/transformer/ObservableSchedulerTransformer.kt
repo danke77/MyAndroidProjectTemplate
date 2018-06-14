@@ -13,6 +13,7 @@ import io.reactivex.schedulers.Schedulers
 class ObservableSchedulerTransformer<T> : ObservableTransformer<T, T> {
 
     companion object {
+        @JvmStatic
         fun <T> create(): ObservableSchedulerTransformer<T> {
             return ObservableSchedulerTransformer()
         }

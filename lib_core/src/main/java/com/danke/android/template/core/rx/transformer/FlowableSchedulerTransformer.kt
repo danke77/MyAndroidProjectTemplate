@@ -13,6 +13,7 @@ import org.reactivestreams.Publisher
 class FlowableSchedulerTransformer<T> : FlowableTransformer<T, T> {
 
     companion object {
+        @JvmStatic
         fun <T> create(): FlowableSchedulerTransformer<T> {
             return FlowableSchedulerTransformer()
         }

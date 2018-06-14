@@ -12,6 +12,7 @@ abstract class BaseApp : Application() {
 
         protected lateinit var sInstance: BaseApp
 
+        @JvmStatic
         fun get(): BaseApp {
             return sInstance
         }
