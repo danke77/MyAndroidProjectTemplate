@@ -20,6 +20,7 @@ object ProcessUtil {
      * @param context
      * @return
      */
+    @JvmStatic
     fun isMainProc(context: Context): Boolean {
         val myPid = Process.myPid()
         var procName = readProcName(context, myPid)
@@ -38,6 +39,7 @@ object ProcessUtil {
      * @param myPid
      * @return
      */
+    @JvmStatic
     fun readProcName(context: Context, myPid: Int): String? {
         var myProcess: ActivityManager.RunningAppProcessInfo? = null
         val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
@@ -69,6 +71,7 @@ object ProcessUtil {
      * @param myPid
      * @return
      */
+    @JvmStatic
     fun readProcName(myPid: Int): String? {
         var fileInputStream: FileInputStream? = null
         try {

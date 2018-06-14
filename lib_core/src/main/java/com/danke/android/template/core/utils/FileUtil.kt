@@ -10,6 +10,7 @@ import java.io.OutputStream
  */
 object FileUtil {
 
+    @JvmStatic
     @Throws(IOException::class)
     fun copyFile(`in`: InputStream, out: OutputStream) {
         val buffer = ByteArray(1024)

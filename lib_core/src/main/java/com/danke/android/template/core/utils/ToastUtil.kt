@@ -18,6 +18,7 @@ object ToastUtil {
 
     private var mToast: ToastCompat? = null
 
+    @JvmStatic
     fun show(context: Context?, @StringRes message: Int) {
         if (context == null) {
             return
@@ -27,6 +28,7 @@ object ToastUtil {
     }
 
     @SuppressLint("ShowToast")
+    @JvmStatic
     fun show(context: Context?, message: String) {
         if (context == null || TextUtils.isEmpty(message)) {
             return

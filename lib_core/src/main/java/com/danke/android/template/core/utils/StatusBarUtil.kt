@@ -29,6 +29,7 @@ object StatusBarUtil {
      * 判断是否Flyme4以上
      */
     val isFlyme4Later: Boolean
+        @JvmStatic
         get() = (Build.FINGERPRINT.contains("Flyme_OS_4")
                 || Build.VERSION.INCREMENTAL.contains("Flyme_OS_4")
                 || Pattern.compile("Flyme OS [4|5]", Pattern.CASE_INSENSITIVE).matcher(Build.DISPLAY).find())
@@ -37,6 +38,7 @@ object StatusBarUtil {
      * 判断是否为MIUI6以上
      */
     val isMIUI6Later: Boolean
+        @JvmStatic
         get() {
             return try {
                 @SuppressLint("PrivateApi") val clz = Class.forName("android.os.SystemProperties")
@@ -52,25 +54,18 @@ object StatusBarUtil {
         }
 
     //<editor-fold desc="沉侵">
+    @JvmStatic
+    @JvmOverloads
     fun immersive(activity: Activity, color: Int = DEFAULT_COLOR,
                   @FloatRange(from = 0.0, to = 1.0) alpha: Float = DEFAULT_ALPHA) {
         immersive(activity.window, color, alpha)
     }
 
-    fun immersive(activity: Activity, color: Int) {
-        immersive(activity.window, color, 1f)
-    }
-
-    fun immersive(window: Window) {
-        immersive(window, DEFAULT_COLOR, DEFAULT_ALPHA)
-    }
-
-    fun immersive(window: Window, color: Int) {
-        immersive(window, color, 1f)
-    }
-
     @SuppressLint("ObsoleteSdkInt")
-    fun immersive(window: Window, color: Int, @FloatRange(from = 0.0, to = 1.0) alpha: Float) {
+    @JvmStatic
+    @JvmOverloads
+    fun immersive(window: Window, color: Int = DEFAULT_COLOR,
+                  @FloatRange(from = 0.0, to = 1.0) alpha: Float = DEFAULT_ALPHA) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
@@ -89,6 +84,7 @@ object StatusBarUtil {
 
     //<editor-fold desc="DarkMode">
     @SuppressLint("ObsoleteSdkInt")
+    @JvmStatic
     fun darkMode(activity: Activity, dark: Boolean) {
         when {
             isFlyme4Later -> darkModeForFlyme4(activity.window, dark)
@@ -100,11 +96,10 @@ object StatusBarUtil {
     /**
      * 设置状态栏darkMode,字体颜色及icon变黑(目前支持MIUI6以上,Flyme4以上,Android M以上)
      */
-    fun darkMode(activity: Activity) {
-        darkMode(activity.window, DEFAULT_COLOR, DEFAULT_ALPHA)
-    }
-
-    fun darkMode(activity: Activity, color: Int, @FloatRange(from = 0.0, to = 1.0) alpha: Float) {
+    @JvmStatic
+    @JvmOverloads
+    fun darkMode(activity: Activity, color: Int = DEFAULT_COLOR,
+                 @FloatRange(from = 0.0, to = 1.0) alpha: Float = DEFAULT_ALPHA) {
         darkMode(activity.window, color, alpha)
     }
 
@@ -112,7 +107,10 @@ object StatusBarUtil {
      * 设置状态栏darkMode,字体颜色及icon变黑(目前支持MIUI6以上,Flyme4以上,Android M以上)
      */
     @SuppressLint("ObsoleteSdkInt")
-    fun darkMode(window: Window, color: Int, @FloatRange(from = 0.0, to = 1.0) alpha: Float) {
+    @JvmStatic
+    @JvmOverloads
+    fun darkMode(window: Window, color: Int = DEFAULT_COLOR,
+                 @FloatRange(from = 0.0, to = 1.0) alpha: Float = DEFAULT_ALPHA) {
         when {
             isFlyme4Later -> {
                 darkModeForFlyme4(window, true)
@@ -139,6 +137,7 @@ object StatusBarUtil {
      * android 6.0设置字体颜色
      */
     @RequiresApi(Build.VERSION_CODES.M)
+    @JvmStatic
     private fun darkModeForM(window: Window, dark: Boolean) {
         var systemUiVisibility = window.decorView.systemUiVisibility
         systemUiVisibility = if (dark) {
@@ -153,6 +152,7 @@ object StatusBarUtil {
      * 设置Flyme4+的darkMode,darkMode时候字体颜色及icon变黑
      * http://open-wiki.flyme.cn/index.php?title=Flyme%E7%B3%BB%E7%BB%9FAPI
      */
+    @JvmStatic
     fun darkModeForFlyme4(window: Window?, dark: Boolean): Boolean {
         var result = false
         if (window != null) {
@@ -185,6 +185,7 @@ object StatusBarUtil {
      * 设置MIUI6+的状态栏是否为darkMode,darkMode时候字体颜色及icon变黑
      * http://dev.xiaomi.com/doc/p=4769/
      */
+    @JvmStatic
     fun darkModeForMIUI6(window: Window, darkmode: Boolean): Boolean {
         val clazz = window.javaClass
         return try {
@@ -205,6 +206,7 @@ object StatusBarUtil {
     /**
      * 增加View的paddingTop,增加的值为状态栏高度
      */
+    @JvmStatic
     fun setPadding(context: Context, view: View) {
         if (Build.VERSION.SDK_INT >= MIN_API) {
             view.setPadding(view.paddingLeft, view.paddingTop + getStatusBarHeight(context),
@@ -215,6 +217,7 @@ object StatusBarUtil {
     /**
      * 增加View的paddingTop,增加的值为状态栏高度 (智能判断，并设置高度)
      */
+    @JvmStatic
     fun setPaddingSmart(context: Context, view: View) {
         if (Build.VERSION.SDK_INT >= MIN_API) {
             val lp = view.layoutParams
@@ -229,6 +232,7 @@ object StatusBarUtil {
     /**
      * 增加View的高度以及paddingTop,增加的值为状态栏高度.一般是在沉浸式全屏给ToolBar用的
      */
+    @JvmStatic
     fun setHeightAndPadding(context: Context, view: View) {
         if (Build.VERSION.SDK_INT >= MIN_API) {
             val lp = view.layoutParams
@@ -241,6 +245,7 @@ object StatusBarUtil {
     /**
      * 增加View上边距（MarginTop）一般是给高度为 WARP_CONTENT 的小控件用的
      */
+    @JvmStatic
     fun setMargin(context: Context, view: View) {
         if (Build.VERSION.SDK_INT >= MIN_API) {
             val lp = view.layoutParams
@@ -255,6 +260,7 @@ object StatusBarUtil {
      * 创建假的透明栏
      */
     @SuppressLint("ObsoleteSdkInt")
+    @JvmStatic
     fun setTranslucentView(container: ViewGroup, color: Int, @FloatRange(from = 0.0, to = 1.0) alpha: Float) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             val mixtureColor = mixtureColor(color, alpha)
@@ -272,6 +278,7 @@ object StatusBarUtil {
         }
     }
 
+    @JvmStatic
     fun mixtureColor(color: Int, @FloatRange(from = 0.0, to = 1.0) alpha: Float): Int {
         val a = if (color and -0x1000000 == 0) 0xff else color.ushr(24)
         return color and 0x00ffffff or ((a * alpha).toInt() shl 24)
@@ -280,6 +287,7 @@ object StatusBarUtil {
     /**
      * 获取状态栏高度
      */
+    @JvmStatic
     fun getStatusBarHeight(context: Context): Int {
         var result = 24
         val resId = context.resources.getIdentifier("status_bar_height", "dimen", "android")

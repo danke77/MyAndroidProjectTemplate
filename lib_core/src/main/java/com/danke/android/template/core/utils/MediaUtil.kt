@@ -13,6 +13,7 @@ import java.io.FileNotFoundException
  */
 object MediaUtil {
 
+    @JvmStatic
     fun insertImageToGallery(context: Context, path: String, fileName: String) {
         try {
             MediaStore.Images.Media.insertImage(context.contentResolver, path, fileName, null)

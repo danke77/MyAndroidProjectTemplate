@@ -16,6 +16,7 @@ import android.view.ViewGroup
  */
 object ViewUtil {
 
+    @JvmStatic
     fun <LIMIT> createView(cls: Class<out LIMIT>, context: Context): LIMIT? {
         try {
             return cls.getDeclaredConstructor(Context::class.java).newInstance(context)
@@ -25,6 +26,7 @@ object ViewUtil {
         return null
     }
 
+    @JvmStatic
     fun replace(activity: Activity, @IdRes holder: Int, @LayoutRes layout: Int) {
         val inflater = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val parent = (activity.findViewById<View>(android.R.id.content) as ViewGroup).getChildAt(0) as ViewGroup?
@@ -35,6 +37,7 @@ object ViewUtil {
         }
     }
 
+    @JvmStatic
     fun replace(activity: Activity, @IdRes holder: Int, replace: View) {
         val parent = (activity.findViewById<View>(android.R.id.content) as ViewGroup).getChildAt(0) as ViewGroup?
         if (parent != null) {
@@ -43,6 +46,7 @@ object ViewUtil {
         }
     }
 
+    @JvmStatic
     fun replace(parent: ViewGroup, holder: View, replace: View) {
         val index = parent.indexOfChild(holder)
         if (index == -1) {
@@ -68,6 +72,7 @@ object ViewUtil {
      *
      * @param context context
      */
+    @JvmStatic
     fun getActionBarSize(context: Context): Int {
         val typedArray = context.obtainStyledAttributes(intArrayOf(android.R.attr.actionBarSize))
         val actionBarSize = typedArray.getDimension(0, 0f).toInt()
@@ -76,6 +81,7 @@ object ViewUtil {
         return actionBarSize
     }
 
+    @JvmStatic
     fun of(view: View): Builder {
         return Builder(view)
     }

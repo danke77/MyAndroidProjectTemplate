@@ -16,6 +16,7 @@ object PaintUtil {
     val sDrawFilter = PaintFlagsDrawFilter(
             0, Paint.DITHER_FLAG or Paint.ANTI_ALIAS_FLAG or Paint.FILTER_BITMAP_FLAG)
 
+    @JvmStatic
     fun obtainPaint(): Paint {
         var paint: Paint
 
@@ -37,12 +38,14 @@ object PaintUtil {
         return paint
     }
 
+    @JvmStatic
     fun obtainPaint(textSize: Float): Paint {
         val paint = obtainPaint()
         paint.textSize = textSize
         return paint
     }
 
+    @JvmStatic
     fun recyclePaint(paint: Paint) {
         sPaintCache.push(paint)
     }

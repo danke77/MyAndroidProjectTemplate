@@ -33,6 +33,7 @@ object DateUtil {
      *
      * @return
      */
+    @JvmStatic
     fun getCurrentLocale(): Locale {
         val context = BaseApp.get().applicationContext
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -48,6 +49,7 @@ object DateUtil {
      * @param context
      * @return
      */
+    @JvmStatic
     fun getCurrentLocale(context: Context): Locale {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             context.resources.configuration.locales.get(0)
@@ -62,6 +64,7 @@ object DateUtil {
      * @param context
      * @return
      */
+    @JvmStatic
     fun getCurrentDateTime(context: Context): String {
         val dateFormat = SimpleDateFormat(DATE_FORMAT, getCurrentLocale(context))
         return dateFormat.format(Date(System.currentTimeMillis()))
@@ -73,6 +76,7 @@ object DateUtil {
      * @param context
      * @return
      */
+    @JvmStatic
     fun getCurrentDate(context: Context): Date {
         val cal = Calendar.getInstance(getCurrentLocale(context))
         cal.timeInMillis = System.currentTimeMillis()
@@ -90,6 +94,8 @@ object DateUtil {
      * @param dataFormat
      * @return
      */
+    @JvmStatic
+    @JvmOverloads
     fun getDateTime(milliseconds: Long,
                     @DateFormat dataFormat: String = DATE_FORMAT,
                     locale: Locale = getCurrentLocale()): String {
@@ -106,6 +112,8 @@ object DateUtil {
      * @param locale
      * @return
      */
+    @JvmStatic
+    @JvmOverloads
     fun formatTransform(dateString: String,
                         @DateFormat fromFormat: String,
                         @DateFormat toFormat: String,
@@ -132,6 +140,8 @@ object DateUtil {
      * @param locale
      * @return
      */
+    @JvmStatic
+    @JvmOverloads
     fun getTimeMilliseconds(dateString: String,
                             @DateFormat dateFormat: String = DATE_FORMAT,
                             locale: Locale = getCurrentLocale()): Long {
@@ -155,6 +165,8 @@ object DateUtil {
      * @param locale
      * @return
      */
+    @JvmStatic
+    @JvmOverloads
     fun getDate(dateString: String,
                 @DateFormat dateFormat: String = DATE_FORMAT,
                 locale: Locale = getCurrentLocale()): Date? {
@@ -177,6 +189,8 @@ object DateUtil {
      * @param locale
      * @return
      */
+    @JvmStatic
+    @JvmOverloads
     fun getDaysToNow(date: String,
                      @DateFormat dataFormat: String = DATE_FORMAT,
                      locale: Locale = getCurrentLocale()): Int {
@@ -199,6 +213,8 @@ object DateUtil {
      * @param date2
      * @return
      */
+    @JvmStatic
+    @JvmOverloads
     fun getDaysBetweenTwoDates(date1: Date,
                                date2: Date,
                                locale: Locale = getCurrentLocale()): Int {

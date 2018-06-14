@@ -8,6 +8,7 @@ import android.content.Context
  */
 object Res {
 
+    @JvmStatic
     fun getResIdByName(context: Context, resName: String, resType: String): Int {
         return context.resources.getIdentifier(resName, resType, context.packageName)
     }

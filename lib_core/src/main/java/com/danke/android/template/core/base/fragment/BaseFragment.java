@@ -188,8 +188,8 @@ public abstract class BaseFragment extends Fragment implements ISharedData<Bundl
             return;
         }
 
-        if (KeyboardUtil.INSTANCE.isActive(activity)) {
-            KeyboardUtil.INSTANCE.hide(activity.getWindow());
+        if (KeyboardUtil.isActive(activity)) {
+            KeyboardUtil.hide(activity.getWindow());
         }
 
         if (parentFragment == null) {

@@ -28,6 +28,7 @@ object KeyboardUtil {
      *
      * @param context context
      */
+    @JvmStatic
     fun isActive(context: Context): Boolean {
         val imm = getInputMethodManager(context)
         return imm != null && imm.isActive
@@ -36,10 +37,12 @@ object KeyboardUtil {
     /**
      * 强制显示输入法
      */
+    @JvmStatic
     fun show(window: Window) {
         show(window.currentFocus)
     }
 
+    @JvmStatic
     fun show(view: View) {
         val imm = getInputMethodManager(view) ?: return
         view.requestFocus()
@@ -47,6 +50,7 @@ object KeyboardUtil {
     }
 
     @SuppressLint("CheckResult")
+    @JvmStatic
     fun show(view: View, milliseconds: Long) {
         Observable.timer(milliseconds, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -56,16 +60,19 @@ object KeyboardUtil {
     /**
      * 强制关闭输入法
      */
+    @JvmStatic
     fun hide(window: Window) {
         hide(window.currentFocus)
     }
 
+    @JvmStatic
     fun hide(view: View) {
         view.clearFocus()
         val imm = getInputMethodManager(view) ?: return
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
+    @JvmStatic
     fun hideSoftInputOnFocus(editText: EditText) {
         val currentVersion = Build.VERSION.SDK_INT
         var methodName: String? = null
@@ -96,6 +103,7 @@ object KeyboardUtil {
     /**
      * 如果输入法已经显示，那么就隐藏它；如果输入法现在没显示，那么就显示它
      */
+    @JvmStatic
     fun toggle(context: Context) {
         val imm = getInputMethodManager(context) ?: return
 
@@ -105,6 +113,7 @@ object KeyboardUtil {
     /**
      * 切换为英文输入模式
      */
+    @JvmStatic
     fun changeToEnglishInputType(editText: EditText) {
         editText.inputType = EditorInfo.TYPE_TEXT_VARIATION_URI
     }
@@ -112,6 +121,7 @@ object KeyboardUtil {
     /**
      * 切换为中文输入模式
      */
+    @JvmStatic
     fun changeToChineseInputType(editText: EditText) {
         editText.inputType = EditorInfo.TYPE_CLASS_TEXT
     }
@@ -119,13 +129,14 @@ object KeyboardUtil {
     /**
      * 监听输入法的回车按键
      */
+    @JvmStatic
     fun setEnterKeyListener(editText: EditText, listener: View.OnClickListener) {
         editText.setOnKeyListener { v, keyCode, event ->
             // 这两个条件必须同时成立，如果仅仅用了enter判断，就会执行两次
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
                 listener.onClick(v)
                 true
-            }else {
+            } else {
                 false
             }
         }

@@ -26,35 +26,43 @@ object StringUtil {
             "([a-zA-Z0-9\\._-]+\\.[a-zA-Z]{2,6})|([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1," +
             "3}))(:[0-9]{1,4})*(/[a-zA-Z0-9\\&%_\\./-~-]*)?"
 
+    @JvmStatic
     fun isEmpty(s: String?): Boolean {
         return s == null || s.trim { it <= ' ' }.isEmpty()
     }
 
+    @JvmStatic
     fun isNotEmpty(content: String): Boolean {
         return !isEmpty(content)
     }
 
+    @JvmStatic
     fun isNumeric(text: String): Boolean {
         return isNotEmpty(text) && check(text, REGEX_NUMBER)
     }
 
+    @JvmStatic
     fun isChinese(text: String): Boolean {
         return isNotEmpty(text) && check(text, REGEX_CHINESE)
     }
 
     // 处理html里面的发邮件标记
+    @JvmStatic
     fun isEmailTo(text: String): Boolean {
         return isNotEmpty(text) && check(text, REGEX_MAILTO)
     }
 
+    @JvmStatic
     fun isEmail(text: String): Boolean {
         return isNotEmpty(text) && check(text, REGEX_EMAIL)
     }
 
+    @JvmStatic
     fun isHttpUrl(text: String): Boolean {
         return isNotEmpty(text) && check(text, REGEX_HTTP_URL)
     }
 
+    @JvmStatic
     fun check(str: String, regex: String): Boolean {
         var flag: Boolean
         flag = try {
@@ -68,6 +76,7 @@ object StringUtil {
         return flag
     }
 
+    @JvmStatic
     fun toInt(s: String): Int {
         if (isEmpty(s)) {
             return 0
@@ -81,6 +90,7 @@ object StringUtil {
         return x
     }
 
+    @JvmStatic
     fun toLong(s: String): Long {
         if (isEmpty(s)) {
             return 0
@@ -94,6 +104,7 @@ object StringUtil {
         return x
     }
 
+    @JvmStatic
     fun toFloat(s: String): Float {
         if (isEmpty(s)) {
             return 0F
@@ -107,6 +118,7 @@ object StringUtil {
         return x
     }
 
+    @JvmStatic
     fun toDouble(s: String): Double {
         if (isEmpty(s)) {
             return 0.0
@@ -128,6 +140,7 @@ object StringUtil {
      * @param size
      * @return
      */
+    @JvmStatic
     fun friendlyFileSize(context: Context, size: Long): String {
         val locale = DateUtil.getCurrentLocale(context)
         return when {

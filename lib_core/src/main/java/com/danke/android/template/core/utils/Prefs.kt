@@ -13,11 +13,13 @@ object Prefs {
 
     private val DEFAULT_PREF = PreferenceManager.getDefaultSharedPreferences(BaseApp.get())
 
+    @JvmStatic
     fun get(): SharedPreferences {
         return DEFAULT_PREF
     }
 
-    operator fun get(name: String): SharedPreferences {
+    @JvmStatic
+    fun get(name: String): SharedPreferences {
         return BaseApp.get().getSharedPreferences(name, Context.MODE_PRIVATE)
     }
 }

@@ -20,6 +20,7 @@ object WindowUtil {
      * @param window
      * @param fullscreen
      */
+    @JvmStatic
     fun toggleFullscreen(window: Window, fullscreen: Boolean) {
         val attrs = window.attributes
         if (fullscreen) {
@@ -38,6 +39,8 @@ object WindowUtil {
      *
      * @param window
      */
+    @JvmStatic
+    @JvmOverloads
     fun hideSystemUI(window: Window, sticky: Boolean = true) {
         val decorView = window.decorView
         decorView.systemUiVisibility = ((if (sticky) View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY else View.SYSTEM_UI_FLAG_IMMERSIVE)
@@ -57,6 +60,7 @@ object WindowUtil {
      *
      * @param window
      */
+    @JvmStatic
     fun showSystemUI(window: Window) {
         val decorView = window.decorView
         decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -70,6 +74,7 @@ object WindowUtil {
      * @param context
      * @return
      */
+    @JvmStatic
     fun getScreenHeight(context: Context): Int {
         val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
 
@@ -82,6 +87,7 @@ object WindowUtil {
      * @param context
      * @return
      */
+    @JvmStatic
     fun getScreenWidth(context: Context): Int {
         val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
 
@@ -94,6 +100,7 @@ object WindowUtil {
      * @param activity
      * @return
      */
+    @JvmStatic
     fun getStatusBarHeight(activity: Activity): Int {
         //屏幕
         val dm = DisplayMetrics()

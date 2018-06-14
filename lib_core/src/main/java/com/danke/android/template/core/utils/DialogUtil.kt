@@ -38,6 +38,8 @@ object DialogUtil {
      * @param negativeClickListener
      * @param cancelable            default true
      */
+    @JvmStatic
+    @JvmOverloads
     fun showDialog(context: Context,
                    @DrawableRes icon: Int = 0,
                    title: CharSequence,
@@ -83,6 +85,8 @@ object DialogUtil {
      * @param negativeClickListener
      * @param cancelable            default true
      */
+    @JvmStatic
+    @JvmOverloads
     fun showDialog(context: Context,
                    @DrawableRes icon: Int = 0,
                    title: CharSequence,
