@@ -13,18 +13,18 @@ android {
         versionCode VERSION_CODE.toInteger()
         versionName getVersionName(VERSION_NAME.toString())
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
 
         javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
 
         multiDexEnabled false
 
         ndk {
-            abiFilters "armeabi-v7a"
+            abiFilters 'armeabi-v7a'
         }
 
         manifestPlaceholders = [
-                InstallChannelValue: "Default", // default channel
+                InstallChannelValue: 'Default', // default channel
                 PACKAGE_NAME       : applicationId,
         ]
 
@@ -38,18 +38,18 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("keystore_release.jks")
-            storePassword "${RELEASE_SIGN_STORE_PASSWORD}"
-            keyAlias "${RELEASE_SIGN_KEY_ALIAS}"
-            keyPassword "${RELEASE_SIGN_KEY_PASSWORD}"
+            storeFile file('keystore_release.jks')
+            storePassword project.hasProperty('RELEASE_SIGN_STORE_PASSWORD') ? "${RELEASE_SIGN_STORE_PASSWORD}" : System.getenv('RELEASE_SIGN_STORE_PASSWORD')
+            keyAlias project.hasProperty('RELEASE_SIGN_KEY_ALIAS') ? "${RELEASE_SIGN_KEY_ALIAS}" : System.getenv('RELEASE_SIGN_KEY_ALIAS')
+            keyPassword project.hasProperty('RELEASE_SIGN_KEY_PASSWORD') ? "${RELEASE_SIGN_KEY_PASSWORD}" : System.getenv('RELEASE_SIGN_KEY_PASSWORD')
             v2SigningEnabled true
         }
 
         debug {
-            storeFile file("keystore_debug.jks")
-            storePassword "${DEBUG_SIGN_STORE_PASSWORD}"
-            keyAlias "${DEBUG_SIGN_KEY_ALIAS}"
-            keyPassword "${DEBUG_SIGN_KEY_PASSWORD}"
+            storeFile file('keystore_debug.jks')
+            storePassword project.hasProperty('DEBUG_SIGN_STORE_PASSWORD') ? "${DEBUG_SIGN_STORE_PASSWORD}" : System.getenv('DEBUG_SIGN_STORE_PASSWORD')
+            keyAlias project.hasProperty('DEBUG_SIGN_KEY_ALIAS') ? "${DEBUG_SIGN_KEY_ALIAS}" : System.getenv('DEBUG_SIGN_KEY_ALIAS')
+            keyPassword project.hasProperty('DEBUG_SIGN_KEY_PASSWORD') ? "${DEBUG_SIGN_KEY_PASSWORD}" : System.getenv('DEBUG_SIGN_KEY_PASSWORD')
             v2SigningEnabled true
         }
     }
