@@ -19,3 +19,25 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-dontwarn java.lang.invoke.**
+
+-dontwarn android.view.MiuiWindowManager$LayoutParams
+-dontwarn android.os.SystemProperties
+
+
+#############################################
+#
+# 暴露调用对象
+#
+#############################################
+-keep public class com.danke.android.templete.core.* { *; }
+-keep, allowobfuscation class com.danke.android.templete.core.**
+
+-keep class com.danke.android.templete.core.**
+-keepclassmembernames class com.danke.android.templete.core.** {
+    public <fields>;
+    public <methods>;
+    protected <fields>;
+    protected <methods>;
+}

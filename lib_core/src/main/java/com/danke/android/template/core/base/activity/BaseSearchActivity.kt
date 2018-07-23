@@ -28,8 +28,7 @@ abstract class BaseSearchActivity : BaseToolbarActivity() {
     override fun setContentView(layoutResID: Int) {
         super.setContentView(layoutResID)
 
-        var query: String? = intent.getStringExtra(SearchManager.QUERY)
-        mQuery = if (query == null) "" else query
+        mQuery = intent.getStringExtra(SearchManager.QUERY) ?: ""
 
         if (searchView != null) {
             searchView!!.setQuery(mQuery, false)

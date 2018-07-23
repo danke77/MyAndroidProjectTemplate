@@ -1,10 +1,86 @@
-apply from: "../config/lib.gradle"
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion COMPILE_SDK_VERSION.toInteger()
+
+    defaultConfig {
+        minSdkVersion MIN_SDK_VERSION.toInteger()
+        targetSdkVersion TARGET_SDK_VERSION.toInteger()
+        versionCode VERSION_CODE.toInteger()
+        versionName VERSION_NAME.toString()
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+        }
+
+        release {
+            minifyEnabled false
+            proguardFile getDefaultProguardFile('proguard-android.txt')
+            proguardFile 'proguard-rules.pro'
+            proguardFile '../proguard-common.pro'
+            proguardFile 'consumer-proguard-rules.pro'
+            consumerProguardFiles 'consumer-proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+        ignoreWarnings true
+        lintConfig file("${rootProject.rootDir}/lint.xml")
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile "src/main/AndroidManifest.xml"
+            java.srcDirs = ['src/main/java']
+            res.srcDirs = ['src/main/res/']
+        }
+
+        androidTest {
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+androidExtensions {
+    experimental = true
+}
 
 dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+
+    androidTestImplementation "com.android.support.test:runner:${RUNNER_VERSION}"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:${ESPRESSO_VERSION}"
+    androidTestImplementation "com.android.support:support-annotations:${ANDROID_SUPPORT_VERSION}"
+    testImplementation "junit:junit:${JNUIT_VERSION}"
+
     api project(path: ':lib_core')
 
     // router
     api 'com.alibaba:arouter-api:1.3.1'
+
+    // image
+    api 'com.github.bumptech.glide:glide:4.7.1'
+    kapt 'com.github.bumptech.glide:compiler:4.7.1'
 
     // ui lib
 }

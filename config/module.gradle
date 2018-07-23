@@ -31,6 +31,7 @@ android {
             minifyEnabled false
             proguardFile getDefaultProguardFile('proguard-android.txt')
             proguardFile 'proguard-rules.pro'
+            proguardFile '../proguard-common.pro'
         }
     }
 

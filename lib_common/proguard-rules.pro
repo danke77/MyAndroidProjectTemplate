@@ -19,3 +19,26 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+#############################################
+#
+# 暴露调用对象
+#
+#############################################
+-keep public class com.danke.android.templete.common.* { *; }
+
+-keep class com.danke.android.templete.common.**
+-keepclassmembernames class com.danke.android.templete.common.** {
+    public <fields>;
+    public <methods>;
+    protected <fields>;
+    protected <methods>;
+}
+
+# event
+-keep public interface com.danke.android.templete.common.EventAction{ *; }
+-keep public interface com.danke.android.templete.common.EventAction$*{ *; }
+
+# router
+-keep public interface com.danke.android.templete.common.Router{ *; }
+-keep public interface com.danke.android.templete.common.Router$*{ *; }
