@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="progressBar">60dp</dimen>
+
     <dimen name="toolbarTitle">16dp</dimen>
+
     <dimen name="dialogTitle">16dp</dimen>
     <dimen name="dialogMessage">14dp</dimen>
     <dimen name="dialogButton">16dp</dimen>
+
+    <dimen name="sidebar_text">12dp</dimen>
 </resources>

@@ -1,4 +1,4 @@
-package com.danke.android.template.core.behavior
+package com.danke.android.template.core.component.behavior
 
 import android.content.Context
 import android.support.design.widget.AppBarLayout
