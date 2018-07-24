@@ -15,7 +15,6 @@ fun getFirstLetter(str: String?): String {
         return "#"
     }
     val c = str.trim().substring(0, 1)[0]
-    // 正则表达式匹配
     val pattern = Pattern.compile("^[A-Za-z]+$")
     return if (pattern.matcher(c + "").matches()) {
         c.toString().toUpperCase()
