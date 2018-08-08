@@ -1,4 +1,4 @@
-package com.danke.android.template.core.snackbar
+package com.danke.android.template.core.component.snackbar
 
 import android.app.Activity
 import android.support.annotation.StringRes
