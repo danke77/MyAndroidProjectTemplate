@@ -1,4 +1,4 @@
-package com.tuya.android.core.component.textview
+package com.danke.android.template.core.component.textview
 
 import android.annotation.SuppressLint
 import android.content.Context
