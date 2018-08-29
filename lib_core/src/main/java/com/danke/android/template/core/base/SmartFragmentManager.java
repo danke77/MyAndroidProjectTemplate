@@ -394,7 +394,20 @@ public class SmartFragmentManager {
                                                         @AnimatorRes @AnimRes int exit,
                                                         @AnimatorRes @AnimRes int popEnter,
                                                         @AnimatorRes @AnimRes int popExit) {
-        return showAction(context, containerViewId, clazz, bundle, launchMode, enter, exit, popEnter, popExit);
+        return showAction(context, containerViewId, clazz, bundle, launchMode, false, enter, exit, popEnter, popExit);
+    }
+
+    public <T extends BaseFragment> T showWithAnimation(@NonNull Context context,
+                                                        @IdRes int containerViewId,
+                                                        @NonNull Class<T> clazz,
+                                                        Bundle bundle,
+                                                        @FragmentLaunchMode int launchMode,
+                                                        boolean addToBackStack,
+                                                        @AnimatorRes @AnimRes int enter,
+                                                        @AnimatorRes @AnimRes int exit,
+                                                        @AnimatorRes @AnimRes int popEnter,
+                                                        @AnimatorRes @AnimRes int popExit) {
+        return showAction(context, containerViewId, clazz, bundle, launchMode, addToBackStack, enter, exit, popEnter, popExit);
     }
 
     public void showWithAnimation(@NonNull Context context,
@@ -406,7 +419,20 @@ public class SmartFragmentManager {
                                   @AnimatorRes @AnimRes int exit,
                                   @AnimatorRes @AnimRes int popEnter,
                                   @AnimatorRes @AnimRes int popExit) {
-        showAction(context, containerViewId, fragment, bundle, launchMode, enter, exit, popEnter, popExit);
+        showAction(context, containerViewId, fragment, bundle, launchMode, false, enter, exit, popEnter, popExit);
+    }
+
+    public void showWithAnimation(@NonNull Context context,
+                                  @IdRes int containerViewId,
+                                  @NonNull BaseFragment fragment,
+                                  Bundle bundle,
+                                  @FragmentLaunchMode int launchMode,
+                                  boolean addToBackStack,
+                                  @AnimatorRes @AnimRes int enter,
+                                  @AnimatorRes @AnimRes int exit,
+                                  @AnimatorRes @AnimRes int popEnter,
+                                  @AnimatorRes @AnimRes int popExit) {
+        showAction(context, containerViewId, fragment, bundle, launchMode, addToBackStack, enter, exit, popEnter, popExit);
     }
 
     public <T extends BaseFragment> T show(@NonNull Context context,
@@ -414,7 +440,16 @@ public class SmartFragmentManager {
                                            @NonNull Class<T> clazz,
                                            Bundle bundle,
                                            @FragmentLaunchMode int launchMode) {
-        return showAction(context, containerViewId, clazz, bundle, launchMode, 0, 0, 0, 0);
+        return showAction(context, containerViewId, clazz, bundle, launchMode, false, 0, 0, 0, 0);
+    }
+
+    public <T extends BaseFragment> T show(@NonNull Context context,
+                                           @IdRes int containerViewId,
+                                           @NonNull Class<T> clazz,
+                                           Bundle bundle,
+                                           @FragmentLaunchMode int launchMode,
+                                           boolean addToBackStack) {
+        return showAction(context, containerViewId, clazz, bundle, launchMode, addToBackStack, 0, 0, 0, 0);
     }
 
     public void show(@NonNull Context context,
@@ -422,7 +457,16 @@ public class SmartFragmentManager {
                      @NonNull BaseFragment fragment,
                      Bundle bundle,
                      @FragmentLaunchMode int launchMode) {
-        showAction(context, containerViewId, fragment, bundle, launchMode, 0, 0, 0, 0);
+        show(context, containerViewId, fragment, bundle, launchMode, false);
+    }
+
+    public void show(@NonNull Context context,
+                     @IdRes int containerViewId,
+                     @NonNull BaseFragment fragment,
+                     Bundle bundle,
+                     @FragmentLaunchMode int launchMode,
+                     boolean addToBackStack) {
+        showAction(context, containerViewId, fragment, bundle, launchMode, addToBackStack, 0, 0, 0, 0);
     }
 
     /**
@@ -447,6 +491,7 @@ public class SmartFragmentManager {
                                                   @NonNull Class<T> clazz,
                                                   Bundle bundle,
                                                   @FragmentLaunchMode int launchMode,
+                                                  boolean addToBackStack,
                                                   @AnimatorRes @AnimRes int enter,
                                                   @AnimatorRes @AnimRes int exit,
                                                   @AnimatorRes @AnimRes int popEnter,
@@ -492,10 +537,15 @@ public class SmartFragmentManager {
                 ft.add(containerViewId, t);
         }
 
-        if (prev != null && prev.isAdded() && prev != t) {
-            ft.hide(prev);
+        if (addToBackStack) {
+            ft.addToBackStack(null);
+        } else {
+            if (prev != null && prev.isAdded() && prev != t) {
+                ft.hide(prev);
+            }
+            ft.show(t);
         }
-        ft.show(t);
+
         ft.commitAllowingStateLoss();
 
         return t;
@@ -521,6 +571,7 @@ public class SmartFragmentManager {
                             @NonNull BaseFragment fragment,
                             Bundle bundle,
                             @FragmentLaunchMode int launchMode,
+                            boolean addToBackStack,
                             @AnimatorRes @AnimRes int enter,
                             @AnimatorRes @AnimRes int exit,
                             @AnimatorRes @AnimRes int popEnter,
@@ -562,10 +613,15 @@ public class SmartFragmentManager {
                 ft.add(containerViewId, fragment);
         }
 
-        if (prev != null && prev.isAdded() && prev != fragment) {
-            ft.hide(prev);
+        if (addToBackStack) {
+            ft.addToBackStack(null);
+        } else {
+            if (prev != null && prev.isAdded() && prev != fragment) {
+                ft.hide(prev);
+            }
+            ft.show(fragment);
         }
-        ft.show(fragment);
+
         ft.commitAllowingStateLoss();
     }
 }
